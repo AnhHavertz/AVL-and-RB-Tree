@@ -1,4 +1,3 @@
-# Lớp nút trong cây AVL
 class Node:
     def __init__(self, key):
         self.key = key
@@ -6,70 +5,104 @@ class Node:
         self.right = None
         self.height = 1
 
-# Lớp cây AVL
-class AVLTree:
-    def insert(self, root, key):
-        if not root:
-            return Node(key)
-        elif key < root.key:
-            root.left = self.insert(root.left, key)
-        else:
-            root.right = self.insert(root.right, key)
 
-        root.height = 1 + max(self.get_height(root.left), self.get_height(root.right))
+def height(N):
+    if N is None:
+        return 0
+    return N.height
 
-        balance = self.get_balance(root)
 
-        # trường hợp L-L
-        if balance > 1 and key < root.left.key:
-            return self.right_rotate(root)
+def max(a, b):
+    return a if (a > b) else b
 
-        # trường hợp R-R
-        if balance < -1 and key > root.right.key:
-            return self.left_rotate(root)
 
-        # trường hợp L-R
-        if balance > 1 and key > root.left.key:
-            root.left = self.left_rotate(root.left)
-            return self.right_rotate(root)
+def newNode(key):
+    node = Node(key)
+    return node
 
-        # trường hợp R-L
-        if balance < -1 and key < root.right.key:
-            root.right = self.right_rotate(root.right)
-            return self.left_rotate(root)
 
-        return root
+def rightRotate(y):
+    x = y.left
+    T2 = x.right
 
-    def left_rotate(self, z):
-        y = z.right
-        T2 = y.left
+    x.right = y
+    y.left = T2
 
-        y.left = z
-        z.right = T2
+    y.height = max(height(y.left), height(y.right)) + 1
+    x.height = max(height(x.left), height(x.right)) + 1
 
-        z.height = 1 + max(self.get_height(z.left), self.get_height(z.right))
-        y.height = 1 + max(self.get_height(y.left), self.get_height(y.right))
+    return x
 
-        return y
 
-    def right_rotate(self, z):
-        y = z.left
-        T3 = y.right
+def leftRotate(x):
+    y = x.right
+    T2 = y.left
 
-        y.right = z
-        z.left = T3
+    y.left = x
+    x.right = T2
 
-        z.height = 1 + max(self.get_height(z.left), self.get_height(z.right))
-        y.height = 1 + max(self.get_height(y.left), self.get_height(y.right))
+    x.height = max(height(x.left), height(x.right)) + 1
+    y.height = max(height(y.left), height(y.right)) + 1
 
-        return y
+    return y
 
-    def get_height(self, root):
-        if not root:
-            return 0
-        return root.height
 
-    def get_balance(self, root):
-        if not root:
-            return 0
-        return self.get_height(root.left) - self.get_height(root.right)
+def getBalance(N):
+    if N is None:
+        return 0
+    return height(N.left) - height(N.right)
+
+
+def insert(node, key):
+    if node is None:
+        return newNode(key)
+
+    if key < node.key:
+        node.left = insert(node.left, key)
+    elif key > node.key:
+        node.right = insert(node.right, key)
+    else:
+        return node
+
+    node.height = 1 + max(height(node.left), height(node.right))
+
+    balance = getBalance(node)
+
+    if balance > 1 and key < node.left.key:
+        return rightRotate(node)
+
+    if balance < -1 and key > node.right.key:
+        return leftRotate(node)
+
+    if balance > 1 and key > node.left.key:
+        node.left = leftRotate(node.left)
+        return rightRotate(node)
+
+    if balance < -1 and key < node.right.key:
+        node.right = rightRotate(node.right)
+        return leftRotate(node)
+
+    return node
+
+
+def preOrder(root):
+    if root:
+        print(root.key, end=" ")
+        preOrder(root.left)
+        preOrder(root.right)
+
+
+import random
+
+with open("C:\\Users\\buivu\\PycharmProjects\\pythonProject2\\AVL-Height.txt", "w") as fo:
+    for f in range(1, 11):
+        root = None
+        with open(f"C:\\Users\\buivu\\OneDrive\\Pictures\\Documents\\generator\\file{f}.txt") as fi:
+            n = int(fi.readline())
+            numbers = list(map(int, fi.readline().split()))
+
+            for num in numbers:
+                root = insert(root, num)
+
+            fo.write(str(root.height) + "\n")
+
