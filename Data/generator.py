@@ -1,8 +1,8 @@
 import random
 import math
 
-randomN = random.randint(1, 1000000)  # Min-max of N (~10^6)
-randomNumber = random.randint(1, 10000000)  # Min-max of elements in tree
+randomN = random.randint(1, 1000000)  # Giá trị tối thiểu và tối đa của N (~10^6)
+randomNumber = random.randint(1, 10000000)  # Giá trị tối thiểu và tối đa của các phần tử trong cây
 
 with open("logN_145andlogN.txt", "w") as fo:
     for i in range(1, 11):
@@ -12,22 +12,13 @@ with open("logN_145andlogN.txt", "w") as fo:
             file.write(str(N) + '\n')
 
             if i < 3:
-                uniqueNumbers = set()
-                while len(uniqueNumbers) < N:
-                    uniqueNumbers.add(randomNumber)
-                    randomNumber = random.randint(1, 10000000)
+                uniqueNumbers = random.sample(range(1, 10000001), N)
                 if i == 1:  # tăng dần / ascending
-                    for num in sorted(uniqueNumbers):
-                        file.write(str(num) + ' ')
+                    file.write(' '.join(map(str, sorted(uniqueNumbers))))
                 else:  # giảm dần / descending
-                    for num in sorted(uniqueNumbers, reverse=True):
-                        file.write(str(num) + ' ')
+                    file.write(' '.join(map(str, sorted(uniqueNumbers, reverse=True))))
             else:  # ngẫu nhiên / random
-                uniqueNumbers = set()
-                while len(uniqueNumbers) < N:
-                    uniqueNumbers.add(randomNumber)
-                    randomNumber = random.randint(1, 10000000)
-                for num in uniqueNumbers:
-                    file.write(str(num) + ' ')
+                uniqueNumbers = random.sample(range(1, 10000001), N)
+                file.write(' '.join(map(str, uniqueNumbers)))
 
             fo.write(str(math.log2(N)) + ' ' + str(1.45 * math.log2(N)) + '\n')
