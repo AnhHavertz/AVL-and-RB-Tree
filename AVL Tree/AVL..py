@@ -94,10 +94,10 @@ def preOrder(root):
 
 import random
 
-with open("C:\\Users\\buivu\\PycharmProjects\\pythonProject2\\AVL-Height.txt", "w") as fo:
+with open("C:\\Users\\buivu\\PycharmProjects\\pythonProject2\\AVLHeight.txt", "w") as fo:
     for f in range(1, 11):
         root = None
-        with open(f"C:\\Users\\buivu\\OneDrive\\Pictures\\Documents\\generator\\file{f}.txt") as fi:
+        with open(f"C:\\Users\\buivu\\OneDrive\\Pictures\\Documents\\generator\\filedata{f}.txt") as fi:
             n = int(fi.readline())
             numbers = list(map(int, fi.readline().split()))
 
