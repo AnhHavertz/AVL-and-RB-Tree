@@ -1,5 +1,6 @@
 import sys
 
+
 class Node():
     def __init__(self, item):
         self.item = item
@@ -17,12 +18,12 @@ class RedBlackTree():
         self.TNULL.right = None
         self.root = self.TNULL
 
+        
     def left_rotate(self, x):
         y = x.right
         x.right = y.left
         if y.left != self.TNULL:
             y.left.parent = x
-
         y.parent = x.parent
         if x.parent == None:
             self.root = y
@@ -30,16 +31,15 @@ class RedBlackTree():
             x.parent.left = y
         else:
             x.parent.right = y
-
         y.left = x
         x.parent = y
 
+        
     def right_rotate(self, x):
         y = x.left
         x.left = y.right
         if y.right != self.TNULL:
             y.right.parent = x
-
         y.parent = x.parent
         if x.parent == None:
             self.root = y
@@ -47,7 +47,6 @@ class RedBlackTree():
             x.parent.right = y
         else:
             x.parent.left = y
-
         y.right = x
         x.parent = y
 
@@ -76,7 +75,6 @@ class RedBlackTree():
     def search_tree_helper(self, node, key):
         if node == TNULL or key == node.item:
             return node
-
         if key < node.item:
             return self.search_tree_helper(node.left, key)
         return self.search_tree_helper(node.right, key)
@@ -124,7 +122,6 @@ class RedBlackTree():
                 self.delete_fix(x)
 
 
-        # Balancing the tree after deletion
     def delete_fix(self, x):
         while x != self.root and x.color == 0:
             if x == x.parent.left:
