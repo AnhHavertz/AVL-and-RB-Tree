@@ -4,7 +4,7 @@ import math
 randomN = random.randint(1, 1000000)  # Giá trị tối thiểu và tối đa của N (~10^6)
 randomNumber = random.randint(1, 10000000)  # Giá trị tối thiểu và tối đa của các phần tử trong cây
 
-with open("logN_145andlogN.txt", "w") as fo:
+with open("logNand145logN.txt", "w") as fo:
     for i in range(1, 11):
         filename = "filedata" + str(i) + ".txt"
         with open(filename, "w") as file:
