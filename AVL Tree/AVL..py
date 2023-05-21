@@ -97,7 +97,7 @@ import random
 with open("C:\\Users\\buivu\\PycharmProjects\\pythonProject2\\AVL_Height.txt", "w") as fo:
     for f in range(1, 11):
         root = None
-        with open(f"C:\\Users\\buivu\\OneDrive\\Pictures\\Documents\\generator\\filedata{f}.txt") as fi:
+        with open(f"C:/Users/buivu/PycharmProjects/pythonProject2/filedata{f}.txt") as fi:
             n = int(fi.readline())
             numbers = list(map(int, fi.readline().split()))
 
@@ -105,4 +105,3 @@ with open("C:\\Users\\buivu\\PycharmProjects\\pythonProject2\\AVL_Height.txt", "
                 root = insert(root, num)
 
             fo.write(str(root.height) + "\n")
-
